@@ -8,3 +8,26 @@ body {
   margin: auto;
   padding: 1em;
 }
+
+header {
+  display: flex;
+  gap: 1em;
+  align-items: baseline;
+}
+
+/* Push the filter label to the right */
+.time-filter {
+  margin-left: auto;
+}
+
+/* Put time + (any time) on their own lines */
+#time-display,
+#time-any {
+  display: block;
+}
+
+/* Style the “(any time)” state differently */
+#time-any {
+  color: #777;
+  font-style: italic;
+}

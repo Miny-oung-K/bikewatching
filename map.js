@@ -133,10 +133,17 @@ map.on('load', async () => {
       .enter()
       .append('circle')
       .attr('r', (d) => radiusScale(d.totalTraffic))
-      .attr('fill', 'steelblue') // Circle fill color
-      .attr('stroke', 'white') // Circle border color
-      .attr('stroke-width', 1) // Circle border thickness
-      .attr('opacity', 0.8); // Circle opacity
+      .attr('fill', 'steelblue')
+      .attr('stroke', 'white')
+      .attr('stroke-width', 1)
+      .attr('opacity', 0.8)
+      .each(function (d) {
+        d3.select(this)
+          .append('title')
+          .text(
+            `${d.totalTraffic} trips (${d.departures} departures, ${d.arrivals} arrivals)`
+          );
+      });
 
     // Function to update circle positions when the map moves/zooms
     function updatePositions() {
@@ -156,4 +163,33 @@ map.on('load', async () => {
   } catch (error) {
     console.error('Error loading JSON:', error);
   }
+  
+  const slider = document.getElementById('time-slider');
+  const timeDisplay = document.getElementById('time-display');
+  const anyTime = document.getElementById('time-any');
+
+  // Convert minutes → HH:MM AM/PM
+  function formatTime(mins) {
+    const d = new Date(0, 0, 0, 0, mins);
+    return d.toLocaleTimeString([], {
+      hour: 'numeric',
+      minute: '2-digit'
+    });
+  }
+
+  // Update the time display as slider moves
+  slider.addEventListener('input', () => {
+    const value = +slider.value;
+
+    if (value === -1) {
+      // (-1) means no filtering
+      timeDisplay.textContent = '';
+      anyTime.style.display = 'block';
+    } else {
+      // Show time and hide "(any time)"
+      timeDisplay.textContent = formatTime(value);
+      anyTime.style.display = 'none';
+    }
+  });
+
 });

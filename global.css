@@ -9,6 +9,7 @@ body {
   padding: 1em;
 }
 
+/* Title + time slider */
 header {
   display: flex;
   gap: 1em;
@@ -21,13 +22,30 @@ header {
 }
 
 /* Put time + (any time) on their own lines */
-#time-display,
-#time-any {
+#selected-time,
+#any-time {
   display: block;
 }
 
-/* Style the “(any time)” state differently */
-#time-any {
+/* Style the “(any time)” state */
+#any-time {
   color: #777;
   font-style: italic;
+}
+
+/* Legend layout */
+.legend {
+  display: flex;
+  gap: 1px;
+  margin-block: 1em;
+  max-width: 600px;
+}
+
+.legend > div {
+  flex: 1;
+  padding: 0.4em 1em;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+  background: var(--color); /* color comes from CSS variable */
 }
